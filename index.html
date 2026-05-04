@@ -1,79 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VS Hack Official</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #0a0b10; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        /* Header Section */
-        .header { width: 100%; padding: 20px; text-align: center; background: linear-gradient(180deg, #1a1c29 0%, transparent 100%); border-bottom: 1px solid #38bdf833; }
-        .logo { font-size: 24px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* Main Container */
-        .container { width: 90%; max-width: 400px; margin-top: 30px; }
-        
-        /* Status Card */
-        .status-card { background: #161b22; border-radius: 15px; padding: 20px; border-left: 5px solid #38bdf8; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; }
-        .status-title { font-size: 14px; color: #8b949e; margin-bottom: 5px; }
-        .status-val { font-size: 18px; font-weight: bold; color: #00ff88; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="theme-color" content="#060606"/>
+<title>Dehati Adda — Elite Men's Lookbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{background:#060606;color:#f0ede8;overflow-x:hidden;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#060606}
+::-webkit-scrollbar-thumb{background:#c8a96e;border-radius:2px}
+@media(pointer:fine){*{cursor:none!important}}
 
-        /* Telegram Section (Glow Effect) */
-        .tg-box { background: #0088cc; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 0 20px rgba(0, 136, 204, 0.4); margin-bottom: 25px; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
-        .tg-box:active { transform: scale(0.95); }
-        .tg-box h2 { color: white; margin-bottom: 5px; font-size: 20px; }
-        .tg-box p { color: #e0f2fe; font-size: 13px; }
+/* ── Keyframes ── */
+@keyframes marquee   {0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes floatY    {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes spinBadge {from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes breathe   {0%,100%{opacity:.025}50%{opacity:.065}}
+@keyframes scanline  {0%{top:-2%}100%{top:102%}}
+@keyframes pgrow     {0%{width:0%}40%{width:40%}80%{width:80%}100%{width:100%}}
+@keyframes glowpulse {0%,100%{box-shadow:0 0 20px rgba(200,169,110,.2)}50%{box-shadow:0 0 50px rgba(200,169,110,.5),0 0 90px rgba(200,169,110,.15)}}
 
-        /* Tools List */
-        .tool-item { background: #21262d; border-radius: 12px; padding: 15px; margin-bottom: 12px; display: flex; align-items: center; border: 1px solid #30363d; }
-        .tool-icon { width: 40px; height: 40px; background: #38bdf822; border-radius: 8px; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #38bdf8; }
-        .tool-info h3 { font-size: 15px; }
-        .tool-info p { font-size: 11px; color: #8b949e; }
+/* ── Responsive helpers ── */
+@media(max-width:768px){
+  .feat-grid {grid-template-columns:1fr!important;gap:2.5rem!important}
+  .about-grid{grid-template-columns:1fr!important;gap:2.5rem!important}
+  .nav-links {display:none!important}
+}
 
-        /* Footer */
-        .footer { margin-top: auto; padding: 20px; font-size: 12px; color: #484f58; }
-    </style>
+/* ── Remove scrollbar on drag track ── */
+.drag-track::-webkit-scrollbar{display:none}
+.drag-track{-ms-overflow-style:none;scrollbar-width:none}
+</style>
 </head>
 <body>
+<div id="root"></div>
 
-    <div class="header">
-        <div class="logo">VS HACK SYSTEM</div>
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useRef,useCallback}=React;
+
+/* ══════════════════════════════════════════════════
+   FIREBASE CONFIG
+══════════════════════════════════════════════════ */
+const FB={
+  apiKey:"AIzaSyDR_7jysqTcWxMehNsHLLgcYj_3uQNj1ks",
+  authDomain:"vs-store-181d6.firebaseapp.com",
+  databaseURL:"https://vs-store-181d6-default-rtdb.firebaseio.com",
+  projectId:"vs-store-181d6",
+  storageBucket:"vs-store-181d6.firebasestorage.app",
+  messagingSenderId:"77073269493",
+  appId:"1:77073269493:web:e89f041dc184684c55bbbc"
+};
+
+/* ══════════════════════════════════════════════════
+   DEFAULT SITE DATA  (demo Unsplash men's photos)
+══════════════════════════════════════════════════ */
+const DEF={
+  hero:{
+    brandName:"DEHATI ADDA",
+    tagline:"Elite Looks. Desi Roots.",
+    subtext:"Wear the culture. Own the streets.",
+    heroImg:"https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1400&q=80",
+    profileImg:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80"
+  },
+  marquee:{text:"NEW COLLECTION · ELITE WEAR · DESI ROOTS · STREET CULTURE · DEHATI ADDA · "},
+  collection:{
+    title:"THE LOOKS",
+    subtitle:"Season 2026 · Limited Edition",
+    items:[
+      {id:1,title:"URBAN KURTA",   label:"Signature",    desc:"Street meets tradition. Raw fabric, refined cut.",       img:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80"},
+      {id:2,title:"DESI DRIP",    label:"Bestseller",   desc:"Elevated everyday wear for the modern man.",             img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"},
+      {id:3,title:"VILLAGE LUXE", label:"Exclusive",    desc:"Rural aesthetics. Premium finish. Zero compromise.",     img:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80"},
+      {id:4,title:"HARVEST GOLD", label:"Editorial",    desc:"Golden hour. Fields of silk. Pure drama.",              img:"https://images.unsplash.com/photo-1463453091185-61582044d556?w=600&q=80"},
+      {id:5,title:"MIDNIGHT DHOTI",label:"Night Edition",desc:"After dark sophistication. Born in the dark.",          img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80"}
+    ]
+  },
+  featured:{
+    title:"THE STATEMENT PIECE",
+    subtitle:"This season's hero look",
+    desc:"Raw silk kurta with hand-embroidered cuffs. Paired with structured dhoti pants. This is not fashion — this is identity.",
+    tag:"LIMITED · 50 PIECES ONLY",
+    img:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=800&q=80"
+  },
+  about:{
+    title:"OUR STORY",
+    line1:"Born in dust.",
+    line2:"Polished by light.",
+    body:"Dehati Adda is not a brand — it is a declaration. We take the raw energy of village life and forge it into elite visual culture. Every look carries a story. Every stitch holds history.",
+    img:"https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=700&q=80",
+    stat1:{num:"2K+", label:"Looks Delivered"},
+    stat2:{num:"18",  label:"Cities"},
+    stat3:{num:"100%",label:"Desi Soul"}
+  },
+  footer:{copyright:"© 2026 Dehati Adda. All Rights Reserved.",insta:"@dehati_adda",tagline:"Wear the culture."}
+};
+
+/* ══════════════════════════════════════════════════
+   FIREBASE HOOK
+══════════════════════════════════════════════════ */
+function useFirebase(){
+  const [dbh,setDbh]=useState(null);
+  const [data,setData]=useState(DEF);
+  const [ready,setReady]=useState(false);
+
+  useEffect(()=>{
+    (async()=>{
+      try{
+        const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+        const {getDatabase,ref,onValue,set}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js");
+        const app=initializeApp(FB);
+        const db=getDatabase(app);
+        onValue(ref(db,"dehatiAdda"),snap=>{const d=snap.val();if(d)setData(d);});
+        setDbh({db,ref,set});
+      }catch(e){console.warn("Firebase offline — using defaults");}
+      setReady(true);
+    })();
+  },[]);
+
+  const save=async(nd)=>{
+    if(!dbh)return false;
+    try{await dbh.set(dbh.ref(dbh.db,"dehatiAdda"),nd);return true;}catch{return false;}
+  };
+  return{data,save,ready};
+}
+
+/* ══════════════════════════════════════════════════
+   INTERSECTION REVEAL HOOK
+══════════════════════════════════════════════════ */
+function useReveal(thr=0.12){
+  const ref=useRef(null);
+  const [vis,setVis]=useState(false);
+  useEffect(()=>{
+    const el=ref.current;if(!el)return;
+    const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){setVis(true);obs.disconnect();}},{threshold:thr});
+    obs.observe(el);
+    return()=>obs.disconnect();
+  },[]);
+  return[ref,vis];
+}
+
+/* ══════════════════════════════════════════════════
+   CUSTOM CURSOR  (desktop only)
+══════════════════════════════════════════════════ */
+function Cursor(){
+  const ring=useRef(null),dot=useRef(null);
+  const m=useRef({x:-200,y:-200}),s=useRef({x:-200,y:-200});
+  useEffect(()=>{
+    const mv=e=>{m.current={x:e.clientX,y:e.clientY};};
+    window.addEventListener("mousemove",mv);
+    let raf;
+    const loop=()=>{
+      s.current.x+=(m.current.x-s.current.x)*0.1;
+      s.current.y+=(m.current.y-s.current.y)*0.1;
+      if(ring.current)ring.current.style.transform=`translate(${s.current.x-22}px,${s.current.y-22}px)`;
+      if(dot.current)dot.current.style.transform=`translate(${m.current.x-3}px,${m.current.y-3}px)`;
+      raf=requestAnimationFrame(loop);
+    };
+    raf=requestAnimationFrame(loop);
+    return()=>{window.removeEventListener("mousemove",mv);cancelAnimationFrame(raf);};
+  },[]);
+  return(
+    <>
+      <div ref={ring} style={{position:"fixed",top:0,left:0,width:44,height:44,border:"1px solid rgba(200,169,110,.75)",borderRadius:"50%",pointerEvents:"none",zIndex:99999,mixBlendMode:"difference"}}/>
+      <div ref={dot}  style={{position:"fixed",top:0,left:0,width:6,height:6,background:"#c8a96e",borderRadius:"50%",pointerEvents:"none",zIndex:99999,boxShadow:"0 0 6px #c8a96e"}}/>
+    </>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   PRELOADER
+══════════════════════════════════════════════════ */
+function Preloader({onDone}){
+  const [p,setP]=useState(0);
+  useEffect(()=>{
+    const ts=[
+      setTimeout(()=>setP(1),300),
+      setTimeout(()=>setP(2),1200),
+      setTimeout(()=>setP(3),2100),
+      setTimeout(onDone,2700)
+    ];
+    return()=>ts.forEach(clearTimeout);
+  },[]);
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:99999,background:"#060606",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
+      opacity:p===3?0:1,transition:"opacity .6s ease",pointerEvents:p===3?"none":"all"}}>
+
+      {/* scan line */}
+      <div style={{position:"absolute",left:0,right:0,height:"1px",
+        background:"linear-gradient(90deg,transparent,rgba(200,169,110,.55),transparent)",
+        animation:"scanline 2s linear infinite"}}/>
+
+      {/* Logo */}
+      <div style={{fontFamily:"'Bebas Neue',cursive",fontSize:"clamp(2.8rem,10vw,5.5rem)",
+        letterSpacing:".25em",color:"#f0ede8",textAlign:"center",padding:"0 1rem",
+        opacity:p>=1?1:0,transform:p>=1?"none":"translateY(22px)",
+        transition:"all .9s cubic-bezier(.16,1,.3,1)"}}>
+        DEHATI ADDA
+      </div>
+
+      {/* Gold line */}
+      <div style={{width:"120px",height:"1px",margin:"1rem 0",
+        background:"linear-gradient(90deg,transparent,#c8a96e,transparent)",
+        opacity:p>=2?1:0,transform:p>=2?"scaleX(1)":"scaleX(0)",
+        transition:"all .6s ease .1s",boxShadow:"0 0 10px rgba(200,169,110,.5)"}}/>
+
+      {/* Subtitle */}
+      <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(.7rem,2vw,.9rem)",
+        letterSpacing:".5em",color:"#c8a96e",fontStyle:"italic",
+        opacity:p>=2?1:0,transition:"opacity .6s ease .3s"}}>
+        Men's Lookbook 2026
+      </div>
+
+      {/* Progress bar */}
+      <div style={{position:"absolute",bottom:0,left:0,right:0,height:"2px",background:"#111"}}>
+        <div style={{height:"100%",background:"linear-gradient(90deg,#c8a96e,#f0ede8)",
+          animation:"pgrow 2.5s ease forwards",boxShadow:"0 0 8px rgba(200,169,110,.6)"}}/>
+      </div>
     </div>
+  );
+}
 
-    <div class="container">
-        <div class="status-card">
-            <div class="status-title">Server Status</div>
-            <div class="status-val">● ONLINE (V.1.0.2)</div>
+/* ══════════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════════ */
+function Navbar({show}){
+  const [sc,setSc]=useState(false);
+  useEffect(()=>{
+    const f=()=>setSc(window.scrollY>60);
+    window.addEventListener("scroll",f,{passive:true});
+    return()=>window.removeEventListener("scroll",f);
+  },[]);
+  return(
+    <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:1000,
+      padding:"1rem 1.8rem",display:"flex",alignItems:"center",justifyContent:"space-between",
+      background:sc?"rgba(6,6,6,.95)":"transparent",
+      backdropFilter:sc?"blur(20px)":"none",
+      borderBottom:sc?"1px solid rgba(200,169,110,.08)":"none",
+      transition:"all .5s ease",
+      opacity:show?1:0,transform:show?"none":"translateY(-20px)"}}>
+
+      <div style={{fontFamily:"'Bebas Neue',cursive",fontSize:"1.3rem",letterSpacing:".2em",color:"#f0ede8"}}>
+        DEHATI ADDA
+      </div>
+
+      <div className="nav-links" style={{display:"flex",gap:"2rem",fontFamily:"'Barlow',sans-serif",
+        fontSize:".62rem",letterSpacing:".2em",color:"rgba(240,237,232,.38)",textTransform:"uppercase"}}>
+        {["Looks","Story","Contact"].map(n=>(
+          <span key={n} style={{transition:"color .2s"}}
+            onMouseEnter={e=>e.target.style.color="#c8a96e"}
+            onMouseLeave={e=>e.target.style.color="rgba(240,237,232,.38)"}>
+            {n}
+          </span>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   HERO  — Full-screen man + parallax
+══════════════════════════════════════════════════ */
+function Hero({data,show}){
+  const imgRef=useRef(null),txtRef=useRef(null);
+
+  useEffect(()=>{
+    const f=()=>{
+      const y=window.scrollY;
+      if(imgRef.current)imgRef.current.style.transform=`scale(1.06) translateY(${y*.28}px)`;
+      if(txtRef.current){
+        txtRef.current.style.transform=`translateY(${y*.13}px)`;
+        txtRef.current.style.opacity=Math.max(0,1-y/480);
+      }
+    };
+    window.addEventListener("scroll",f,{passive:true});
+    return()=>window.removeEventListener("scroll",f);
+  },[]);
+
+  const slideUp=(delay)=>({
+    transform:show?"translateY(0)":"translateY(110%)",
+    transition:`transform 1.1s cubic-bezier(.16,1,.3,1) ${delay}s`
+  });
+
+  const w1=(data.brandName||"DEHATI ADDA").split(" ")[0];
+  const w2=(data.brandName||"DEHATI ADDA").split(" ").slice(1).join(" ")||"ADDA";
+
+  return(
+    <section style={{height:"100vh",position:"relative",overflow:"hidden"}}>
+
+      {/* ── Background: man photo with parallax ── */}
+      <div ref={imgRef} style={{position:"absolute",inset:0,willChange:"transform"}}>
+        <img src={data.heroImg}
+          onError={e=>e.target.src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1400&q=80"}
+          alt=""
+          style={{width:"100%",height:"110%",objectFit:"cover",objectPosition:"center top",
+            filter:"brightness(.42) contrast(1.1) saturate(.85)"}}/>
+      </div>
+
+      {/* Gradient layers */}
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(180deg,rgba(6,6,6,.38) 0%,transparent 26%,transparent 46%,rgba(6,6,6,.97) 100%)"}}/>
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(90deg,rgba(6,6,6,.74) 0%,transparent 65%)"}}/>
+
+      {/* Film grain */}
+      <div style={{position:"absolute",inset:0,opacity:.5,mixBlendMode:"overlay",
+        backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.06'/%3E%3C/svg%3E")`}}/>
+
+      {/* Left vertical gold accent */}
+      <div style={{position:"absolute",left:"1.8rem",top:0,bottom:0,width:"1px",
+        background:"linear-gradient(180deg,transparent,rgba(200,169,110,.35) 28%,rgba(200,169,110,.62) 62%,transparent)",
+        opacity:show?1:0,transition:"opacity 1s ease .5s"}}/>
+
+      {/* ── Text block ── */}
+      <div ref={txtRef} style={{position:"absolute",bottom:"10%",left:"1.8rem",right:"1.8rem",maxWidth:"720px",willChange:"transform,opacity"}}>
+
+        {/* Season label */}
+        <div style={{display:"flex",alignItems:"center",gap:"10px",marginBottom:"1.4rem",
+          opacity:show?1:0,transform:show?"none":"translateX(-18px)",transition:"all .7s ease .2s"}}>
+          <div style={{width:"30px",height:"1px",background:"#c8a96e",flexShrink:0}}/>
+          <span style={{fontFamily:"'Barlow',sans-serif",fontSize:".6rem",letterSpacing:".42em",
+            color:"#c8a96e",textTransform:"uppercase"}}>Men's Lookbook 2026</span>
         </div>
 
-        <a href="https://t.me/vshack999" class="tg-box">
-            <h2>JOIN OFFICIAL TELEGRAM</h2>
-            <p>Get latest updates, tools & scripts here.</p>
-        </a>
+        {/* DEHATI — white solid */}
+        <div style={{overflow:"hidden",marginBottom:"3px"}}>
+          <h1 style={{fontFamily:"'Bebas Neue',cursive",fontSize:"clamp(3.8rem,13vw,9rem)",
+            lineHeight:.9,letterSpacing:".04em",color:"#f0ede8",...slideUp(.4)}}>
+            {w1}
+          </h1>
+        </div>
 
-        <div class="tool-item">
-            <div class="tool-icon">⚡</div>
-            <div class="tool-info">
-                <h3>Auto Bypass System</h3>
-                <p>Advanced security bypass enabled.</p>
+        {/* ADDA — gold outline stroke */}
+        <div style={{overflow:"hidden",marginBottom:"1.7rem"}}>
+          <h1 style={{fontFamily:"'Bebas Neue',cursive",fontSize:"clamp(3.8rem,13vw,9rem)",
+            lineHeight:.9,letterSpacing:".04em",
+            color:"transparent",WebkitTextStroke:"1.5px rgba(200,169,110,.88)",...slideUp(.56)}}>
+            {w2}
+          </h1>
+        </div>
+
+        {/* Tagline */}
+        <div style={{display:"flex",alignItems:"center",gap:"1rem",marginBottom:".7rem",
+          opacity:show?1:0,transition:"opacity .8s ease 1s"}}>
+          <div style={{width:"44px",height:"1px",background:"rgba(200,169,110,.44)",flexShrink:0}}/>
+          <p style={{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",
+            fontSize:"clamp(.95rem,2.4vw,1.38rem)",color:"rgba(240,237,232,.73)",letterSpacing:".02em"}}>
+            {data.tagline}
+          </p>
+        </div>
+
+        {/* Subtext */}
+        <p style={{fontFamily:"'Barlow',sans-serif",fontSize:"clamp(.62rem,1.4vw,.78rem)",
+          letterSpacing:".22em",color:"rgba(240,237,232,.28)",textTransform:"uppercase",
+          opacity:show?1:0,transition:"opacity .8s ease 1.2s"}}>
+          {data.subtext}
+        </p>
+      </div>
+
+      {/* Scroll indicator */}
+      <div style={{position:"absolute",bottom:"2.8rem",right:"1.8rem",
+        display:"flex",flexDirection:"column",alignItems:"center",gap:"8px",
+        opacity:show?1:0,transition:"opacity 1s ease 1.5s"}}>
+        <span style={{fontFamily:"'Barlow',sans-serif",fontSize:".52rem",letterSpacing:".3em",
+          color:"rgba(240,237,232,.22)",textTransform:"uppercase",writingMode:"vertical-rl"}}>Scroll</span>
+        <div style={{width:"1px",height:"55px",
+          background:"linear-gradient(180deg,rgba(200,169,110,.72),transparent)",
+          animation:"floatY 1.8s ease-in-out infinite"}}/>
+      </div>
+
+      {/* SS·2026 rotated stamp */}
+      <div style={{position:"absolute",top:"50%",right:"1.8rem",
+        transform:"translateY(-50%) rotate(90deg)",
+        fontFamily:"'Bebas Neue',cursive",fontSize:".82rem",letterSpacing:".35em",
+        color:"rgba(200,169,110,.25)",
+        opacity:show?1:0,transition:"opacity 1s ease 1s"}}>
+        SS · 2026
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   MARQUEE TICKER
+══════════════════════════════════════════════════ */
+function Marquee({text}){
+  const r=(text||"").repeat(6);
+  return(
+    <div style={{background:"#c8a96e",overflow:"hidden",padding:"13px 0",
+      borderTop:"1px solid rgba(240,237,232,.1)"}}>
+      <div style={{display:"flex",whiteSpace:"nowrap",animation:"marquee 18s linear infinite"}}>
+        {[r,r].map((t,i)=>(
+          <span key={i} style={{fontFamily:"'Bebas Neue',cursive",
+            fontSize:"clamp(.82rem,2vw,1.05rem)",letterSpacing:".25em",color:"#060606"}}>
+            {t}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   LOOK CARD
+══════════════════════════════════════════════════ */
+function LookCard({item,i}){
+  const [ref,vis]=useReveal();
+  const [hov,setHov]=useState(false);
+  return(
+    <div ref={ref}
+      onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+      onTouchStart={()=>setHov(true)} onTouchEnd={()=>setTimeout(()=>setHov(false),600)}
+      style={{minWidth:"clamp(230px,70vw,300px)",height:"clamp(340px,78vw,440px)",
+        position:"relative",flexShrink:0,overflow:"hidden",
+        opacity:vis?1:0,transform:vis?"translateY(0)":"translateY(60px)",
+        transition:`all .8s cubic-bezier(.16,1,.3,1) ${i*.1}s`}}>
+
+      <img src={item.img}
+        onError={e=>e.target.src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"}
+        alt={item.title}
+        style={{width:"100%",height:"100%",objectFit:"cover",
+          transform:hov?"scale(1.07)":"scale(1)",transition:"transform .8s ease",
+          filter:hov?"brightness(.44) contrast(1.12)":"brightness(.6) contrast(1.05) saturate(.85)"}}/>
+
+      {/* Bottom gradient */}
+      <div style={{position:"absolute",inset:0,
+        background:"linear-gradient(0deg,rgba(6,6,6,.96) 0%,rgba(6,6,6,.22) 55%,transparent 100%)"}}/>
+
+      {/* Label badge */}
+      <div style={{position:"absolute",top:"1rem",left:"1rem",
+        fontFamily:"'Barlow',sans-serif",fontSize:".55rem",letterSpacing:".3em",
+        color:"#c8a96e",textTransform:"uppercase",
+        background:"rgba(6,6,6,.65)",padding:"4px 10px",
+        border:"1px solid rgba(200,169,110,.25)"}}>
+        {item.label}
+      </div>
+
+      {/* Look number */}
+      <div style={{position:"absolute",top:"1rem",right:"1rem",
+        fontFamily:"'Bebas Neue',cursive",fontSize:"1.65rem",
+        color:"rgba(240,237,232,.055)"}}>
+        0{i+1}
+      </div>
+
+      {/* Content */}
+      <div style={{position:"absolute",bottom:0,left:0,right:0,padding:"1.3rem",
+        transform:hov?"translateY(-7px)":"translateY(0)",transition:"transform .4s ease"}}>
+
+        <div style={{width:hov?"42px":"18px",height:"1px",background:"#c8a96e",
+          marginBottom:".65rem",transition:"width .4s ease",
+          boxShadow:"0 0 6px rgba(200,169,110,.6)"}}/>
+
+        <h3 style={{fontFamily:"'Bebas Neue',cursive",fontSize:"1.5rem",
+          letterSpacing:".08em",color:"#f0ede8",marginBottom:".3rem"}}>
+          {item.title}
+        </h3>
+
+        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:".8rem",
+          fontStyle:"italic",color:"rgba(240,237,232,.45)",
+          opacity:hov?1:0,transform:hov?"translateY(0)":"translateY(6px)",
+          transition:"all .3s ease .05s"}}>
+          {item.desc}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   COLLECTION SECTION  — horizontal drag scroll
+══════════════════════════════════════════════════ */
+function Collection({data}){
+  const [hRef,hVis]=useReveal();
+  const track=useRef(null);
+  const drag=useRef({on:false,x:0,sl:0});
+
+  const dn=e=>{
+    drag.current={on:true,x:e.pageX||e.touches?.[0]?.pageX,sl:track.current.scrollLeft};
+    track.current.style.cursor="grabbing";
+  };
+  const mv=e=>{
+    if(!drag.current.on)return;
+    e.preventDefault();
+    const x=e.pageX||e.touches?.[0]?.pageX;
+    track.current.scrollLeft=drag.current.sl-(x-drag.current.x)*1.4;
+  };
+  const up=()=>{drag.current.on=false;if(track.current)track.current.style.cursor="grab";};
+
+  return(
+    <section style={{background:"#060606",padding:"6rem 0 5rem"}}>
+
+      {/* Section header */}
+      <div ref={hRef} style={{padding:"0 1.8rem",marginBottom:"3rem"}}>
+        <div style={{overflow:"hidden",marginBottom:".5rem"}}>
+          <div style={{fontFamily:"'Cormorant Garamond',serif",
+            fontSize:"clamp(.7rem,1.4vw,.82rem)",letterSpacing:".5em",
+            color:"#c8a96e",textTransform:"uppercase",fontStyle:"italic",
+            transform:hVis?"translateY(0)":"translateY(110%)",opacity:hVis?1:0,
+            transition:"all .8s cubic-bezier(.16,1,.3,1)"}}>
+            {data.subtitle}
+          </div>
+        </div>
+        <div style={{overflow:"hidden"}}>
+          <div style={{fontFamily:"'Bebas Neue',cursive",
+            fontSize:"clamp(2.6rem,8vw,5.5rem)",letterSpacing:".08em",
+            transform:hVis?"translateY(0)":"translateY(110%)",
+            transition:"all .9s cubic-bezier(.16,1,.3,1) .08s"}}>
+            {data.title}
+          </div>
+        </div>
+        <div style={{width:hVis?"75px":"0",height:"1px",background:"#c8a96e",
+          marginTop:"1.4rem",transition:"width .8s ease .4s",
+          boxShadow:"0 0 8px rgba(200,169,110,.5)"}}/>
+      </div>
+
+      {/* Drag hint */}
+      <div style={{padding:"0 1.8rem",marginBottom:"1rem",
+        fontFamily:"'Barlow',sans-serif",fontSize:".58rem",letterSpacing:".3em",
+        color:"rgba(240,237,232,.18)",textTransform:"uppercase",
+        display:"flex",alignItems:"center",gap:"1rem"}}>
+        <div style={{width:"24px",height:"1px",background:"rgba(240,237,232,.12)"}}/>
+        Drag to explore
+        <div style={{width:"24px",height:"1px",background:"rgba(240,237,232,.12)"}}/>
+      </div>
+
+      {/* Cards horizontal scroll */}
+      <div ref={track} className="drag-track"
+        onMouseDown={dn} onMouseMove={mv} onMouseUp={up} onMouseLeave={up}
+        onTouchStart={dn} onTouchMove={mv} onTouchEnd={up}
+        style={{display:"flex",gap:"16px",overflowX:"auto",
+          padding:"0 1.8rem 2rem",cursor:"grab",
+          WebkitOverflowScrolling:"touch",userSelect:"none"}}>
+        {(data.items||[]).map((item,i)=><LookCard key={item.id} item={item} i={i}/>)}
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   FEATURED SECTION
+══════════════════════════════════════════════════ */
+function Featured({data}){
+  const [ref,vis]=useReveal(.08);
+  return(
+    <section style={{background:"#0a0807",padding:"7rem 1.8rem"}}>
+      <div ref={ref} className="feat-grid"
+        style={{maxWidth:"1300px",margin:"0 auto",display:"grid",
+          gridTemplateColumns:"1fr 1fr",gap:"4.5rem",alignItems:"center"}}>
+
+        {/* Image side */}
+        <div style={{position:"relative",opacity:vis?1:0,
+          transform:vis?"translateX(0)":"translateX(-50px)",
+          transition:"all 1s cubic-bezier(.16,1,.3,1)"}}>
+          <div style={{position:"absolute",inset:"-12px 12px 12px -12px",
+            border:"1px solid rgba(200,169,110,.12)",zIndex:0}}/>
+          <img src={data.img}
+            onError={e=>e.target.src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=800&q=80"}
+            alt=""
+            style={{width:"100%",aspectRatio:"3/4",objectFit:"cover",objectPosition:"center top",
+              filter:"brightness(.78) contrast(1.1) saturate(.82)",
+              position:"relative",zIndex:1,
+              animation:vis?"glowpulse 4s ease-in-out infinite":"none"}}/>
+          <div style={{position:"absolute",bottom:"-1px",left:0,right:0,height:"40%",
+            background:"linear-gradient(0deg,#0a0807,transparent)",zIndex:2}}/>
+        </div>
+
+        {/* Text side */}
+        <div style={{opacity:vis?1:0,transform:vis?"translateX(0)":"translateX(50px)",
+          transition:"all 1s cubic-bezier(.16,1,.3,1) .18s"}}>
+
+          <div style={{display:"inline-block",fontFamily:"'Barlow',sans-serif",
+            fontSize:".58rem",letterSpacing:".4em",color:"#060606",background:"#c8a96e",
+            padding:"5px 13px",marginBottom:"1.6rem",textTransform:"uppercase"}}>
+            {data.tag}
+          </div>
+
+          <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:".76rem",
+            letterSpacing:".4em",color:"#c8a96e",textTransform:"uppercase",
+            marginBottom:".7rem",fontStyle:"italic"}}>
+            {data.subtitle}
+          </div>
+
+          <h2 style={{fontFamily:"'Bebas Neue',cursive",
+            fontSize:"clamp(2.2rem,5vw,4rem)",letterSpacing:".06em",
+            color:"#f0ede8",lineHeight:1.05,marginBottom:"1.6rem"}}>
+            {data.title}
+          </h2>
+
+          <div style={{width:"50px",height:"1px",background:"#c8a96e",marginBottom:"1.6rem"}}/>
+
+          <p style={{fontFamily:"'Cormorant Garamond',serif",
+            fontSize:"clamp(.92rem,1.8vw,1.1rem)",lineHeight:1.9,
+            color:"rgba(240,237,232,.55)",fontStyle:"italic",letterSpacing:".02em"}}>
+            {data.desc}
+          </p>
+
+          <div style={{fontFamily:"'Bebas Neue',cursive",fontSize:"6.5rem",
+            color:"rgba(200,169,110,.04)",lineHeight:1,marginTop:".5rem",letterSpacing:"-.05em"}}>
+            01
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════════════════ */
+function About({data}){
+  const [ref,vis]=useReveal(.08);
+  return(
+    <section style={{background:"#060606",padding:"7rem 1.8rem",position:"relative",overflow:"hidden"}}>
+
+      {/* Giant BG word */}
+      <div style={{position:"absolute",left:"50%",top:"50%",
+        transform:"translate(-50%,-50%)",
+        fontFamily:"'Bebas Neue',cursive",fontSize:"clamp(5rem,22vw,18rem)",
+        color:"rgba(200,169,110,.025)",userSelect:"none",whiteSpace:"nowrap",
+        letterSpacing:"-.05em",lineHeight:1,pointerEvents:"none",
+        animation:"breathe 5s ease-in-out infinite"}}>
+        STORY
+      </div>
+
+      <div ref={ref} className="about-grid"
+        style={{maxWidth:"1300px",margin:"0 auto",display:"grid",
+          gridTemplateColumns:"1fr 1fr",gap:"5rem",alignItems:"center",
+          position:"relative",zIndex:1}}>
+
+        {/* Text side */}
+        <div style={{opacity:vis?1:0,transform:vis?"none":"translateY(40px)",transition:"all .9s ease"}}>
+
+          <div style={{display:"flex",alignItems:"center",gap:"1rem",marginBottom:"1.2rem"}}>
+            <div style={{width:"35px",height:"1px",background:"#c8a96e",flexShrink:0}}/>
+            <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:".74rem",
+              letterSpacing:".4em",color:"#c8a96e",textTransform:"uppercase",fontStyle:"italic"}}>
+              {data.title}
+            </span>
+          </div>
+
+          <h2 style={{fontFamily:"'Bebas Neue',cursive",
+            fontSize:"clamp(2.2rem,5.5vw,4.2rem)",letterSpacing:".06em",
+            color:"#f0ede8",lineHeight:1.05,marginBottom:".2rem"}}>
+            {data.line1}
+          </h2>
+          <h2 style={{fontFamily:"'Bebas Neue',cursive",
+            fontSize:"clamp(2.2rem,5.5vw,4.2rem)",letterSpacing:".06em",
+            color:"transparent",WebkitTextStroke:"1.2px #c8a96e",
+            lineHeight:1.05,marginBottom:"2rem"}}>
+            {data.line2}
+          </h2>
+
+          <p style={{fontFamily:"'Cormorant Garamond',serif",
+            fontSize:"clamp(.9rem,1.7vw,1.08rem)",color:"rgba(240,237,232,.52)",
+            lineHeight:1.95,letterSpacing:".02em",fontStyle:"italic",marginBottom:"2.5rem"}}>
+            {data.body}
+          </p>
+
+          {/* Stats row */}
+          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"1rem",
+            borderTop:"1px solid rgba(200,169,110,.12)",paddingTop:"2rem"}}>
+            {[data.stat1,data.stat2,data.stat3].map((s,i)=>(
+              <div key={i} style={{opacity:vis?1:0,transition:`all .6s ease ${.4+i*.15}s`}}>
+                <div style={{fontFamily:"'Bebas Neue',cursive",
+                  fontSize:"clamp(1.8rem,4vw,2.6rem)",color:"#c8a96e",
+                  letterSpacing:".05em",lineHeight:1}}>
+                  {s?.num}
+                </div>
+                <div style={{fontFamily:"'Barlow',sans-serif",fontSize:".58rem",
+                  letterSpacing:".2em",color:"rgba(240,237,232,.28)",
+                  textTransform:"uppercase",marginTop:".2rem"}}>
+                  {s?.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Image side */}
+        <div style={{position:"relative",opacity:vis?1:0,
+          transform:vis?"none":"translateX(50px)",transition:"all 1s ease .18s"}}>
+
+          {/* Offset border frame */}
+          <div style={{position:"absolute",top:"16px",right:"-16px",bottom:"-16px",left:"16px",
+            border:"1px solid rgba(200,169,110,.1)"}}/>
+
+          <img src={data.img}
+            onError={e=>e.target.src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=700&q=80"}
+            alt=""
+            style={{width:"100%",aspectRatio:"4/5",objectFit:"cover",objectPosition:"center top",
+              filter:"brightness(.72) contrast(1.1) saturate(.8)",
+              position:"relative",zIndex:1}}/>
+
+          {/* Spinning circular text badge */}
+          <div style={{position:"absolute",bottom:"1.5rem",right:"-1rem",
+            width:"84px",height:"84px",zIndex:2,
+            animation:"spinBadge 14s linear infinite"}}>
+            <svg viewBox="0 0 100 100" style={{width:"100%",height:"100%"}}>
+              <path id="circ" d="M50,50m-36,0a36,36,0,1,1,72,0a36,36,0,1,1,-72,0" fill="none"/>
+              <text style={{fontFamily:"'Barlow',sans-serif",fontSize:"9px",fill:"#c8a96e",letterSpacing:"2px"}}>
+                <textPath href="#circ">DEHATI ADDA · ELITE WEAR · SS2026 · </textPath>
+              </text>
+            </svg>
+            <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{width:"5px",height:"5px",background:"#c8a96e",borderRadius:"50%"}}/>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   FOOTER  +  secret admin trigger (3-sec long press)
+══════════════════════════════════════════════════ */
+function Footer({data,trigger}){
+  const timer=useRef(null);
+  const start=()=>{timer.current=setTimeout(trigger,3000);};
+  const stop =()=>clearTimeout(timer.current);
+
+  return(
+    <footer style={{background:"#060606",borderTop:"1px solid rgba(200,169,110,.08)",
+      padding:"4rem 1.8rem 3rem"}}>
+      <div style={{maxWidth:"1300px",margin:"0 auto",
+        display:"flex",flexDirection:"column",alignItems:"center",gap:"1.2rem",textAlign:"center"}}>
+
+        <div style={{fontFamily:"'Bebas Neue',cursive",
+          fontSize:"clamp(1.8rem,5vw,2.8rem)",letterSpacing:".3em",color:"#f0ede8"}}>
+          DEHATI ADDA
         </div>
 
-        <div class="tool-item">
-            <div class="tool-icon">🛡️</div>
-            <div class="tool-info">
-                <h3>Secure Connection</h3>
-                <p>End-to-end encrypted dashboard.</p>
+        <div style={{fontFamily:"'Cormorant Garamond',serif",
+          fontSize:".86rem",fontStyle:"italic",color:"#c8a96e",letterSpacing:".1em"}}>
+          {data.tagline}
+        </div>
+
+        <div style={{width:"50px",height:"1px",background:"rgba(200,169,110,.28)"}}/>
+
+        <div style={{fontFamily:"'Barlow',sans-serif",fontSize:".65rem",
+          letterSpacing:".2em",color:"rgba(240,237,232,.28)"}}>
+          {data.insta}
+        </div>
+
+        <div style={{fontFamily:"'Barlow',sans-serif",fontSize:".6rem",
+          letterSpacing:".1em",color:"rgba(240,237,232,.18)"}}>
+          {data.copyright}
+        </div>
+      </div>
+
+      {/* ✦ SECRET TRIGGER — invisible box, 3-sec long press opens admin ✦ */}
+      <div
+        onMouseDown={start} onMouseUp={stop} onMouseLeave={stop}
+        onTouchStart={start} onTouchEnd={stop} onTouchCancel={stop}
+        style={{width:"90px",height:"28px",margin:"1.6rem auto 0",
+          userSelect:"none",WebkitUserSelect:"none"}}
+      />
+    </footer>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   ADMIN PANEL  — 5-tab glass CMS
+══════════════════════════════════════════════════ */
+function Admin({siteData,onSave,onClose}){
+  const [auth,  setAuth  ]=useState(false);
+  const [pw,    setPw    ]=useState("");
+  const [err,   setErr   ]=useState(false);
+  const [form,  setForm  ]=useState(()=>JSON.parse(JSON.stringify(siteData)));
+  const [saving,setSaving]=useState(false);
+  const [saved, setSaved ]=useState(false);
+  const [tab,   setTab   ]=useState("hero");
+
+  const login=()=>{
+    if(pw==="dehati2026"){setAuth(true);setErr(false);}
+    else{setErr(true);setTimeout(()=>setErr(false),1400);}
+  };
+
+  const doSave=async()=>{
+    setSaving(true);
+    const ok=await onSave(form);
+    setSaving(false);
+    if(ok!==false){setSaved(true);setTimeout(()=>setSaved(false),2500);}
+  };
+
+  /* deep get/set by dot-path */
+  const gv=path=>path.split(".").reduce((o,k)=>(o==null?"":o[k]),form)??""
+  const sv=(path,val)=>setForm(prev=>{
+    const n=JSON.parse(JSON.stringify(prev));
+    const ks=path.split(".");let o=n;
+    for(let i=0;i<ks.length-1;i++){if(o[ks[i]]===undefined)o[ks[i]]={};o=o[ks[i]];}
+    o[ks[ks.length-1]]=val;return n;
+  });
+
+  const INP={width:"100%",background:"rgba(200,169,110,.04)",
+    border:"1px solid rgba(200,169,110,.15)",borderRadius:"3px",
+    padding:"9px 13px",color:"#f0ede8",fontFamily:"'Barlow',sans-serif",
+    fontSize:".8rem",outline:"none",boxSizing:"border-box"};
+  const LBL={fontFamily:"'Barlow',sans-serif",fontSize:".57rem",
+    letterSpacing:".22em",color:"rgba(200,169,110,.55)",
+    textTransform:"uppercase",display:"block",marginBottom:"4px"};
+
+  const F=({label,path,area})=>(
+    <div style={{marginBottom:".85rem"}}>
+      <label style={LBL}>{label}</label>
+      {area
+        ?<textarea value={gv(path)} rows={3} onChange={e=>sv(path,e.target.value)} style={{...INP,resize:"vertical"}}/>
+        :<input    value={gv(path)}            onChange={e=>sv(path,e.target.value)} style={INP}/>
+      }
+    </div>
+  );
+
+  const TABS=[["hero","Hero"],["collection","Looks"],["featured","Featured"],["about","About"],["footer","Footer"]];
+
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:99998,
+      background:"rgba(0,0,0,.92)",backdropFilter:"blur(10px)",
+      display:"flex",alignItems:"center",justifyContent:"center",padding:"1rem"}}>
+
+      <div style={{width:"100%",maxWidth:"500px",maxHeight:"92vh",
+        background:"rgba(6,6,6,.97)",
+        border:"1px solid rgba(200,169,110,.15)",
+        display:"flex",flexDirection:"column",overflow:"hidden"}}>
+
+        {/* ── Panel header ── */}
+        <div style={{padding:"1.1rem 1.4rem",borderBottom:"1px solid rgba(200,169,110,.09)",
+          display:"flex",justifyContent:"space-between",alignItems:"center",
+          background:"rgba(200,169,110,.02)"}}>
+          <div>
+            <div style={{fontFamily:"'Bebas Neue',cursive",fontSize:"1.05rem",letterSpacing:".2em",color:"#c8a96e"}}>
+              ADMIN PANEL
             </div>
+            <div style={{fontFamily:"'Barlow',sans-serif",fontSize:".55rem",
+              letterSpacing:".2em",color:"rgba(200,169,110,.38)",textTransform:"uppercase",marginTop:"2px"}}>
+              Dehati Adda CMS
+            </div>
+          </div>
+          <button onClick={onClose}
+            style={{background:"rgba(240,237,232,.05)",border:"1px solid rgba(240,237,232,.1)",
+              color:"rgba(240,237,232,.5)",borderRadius:"2px",width:"30px",height:"30px",
+              fontFamily:"'Barlow',sans-serif",fontSize:".85rem",flexShrink:0}}>
+            ✕
+          </button>
         </div>
-    </div>
 
-    <div class="footer">
-        Developed by Vikas Sahu | © 2026
-    </div>
+        {/* ── Login ── */}
+        {!auth?(
+          <div style={{padding:"3rem 1.5rem",textAlign:"center"}}>
+            <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",
+              fontStyle:"italic",color:"rgba(240,237,232,.3)",marginBottom:"1.5rem"}}>
+              Secret Access
+            </div>
+            <input type="password" value={pw}
+              onChange={e=>setPw(e.target.value)}
+              onKeyDown={e=>e.key==="Enter"&&login()}
+              placeholder="Enter password"
+              style={{...INP,textAlign:"center",marginBottom:"1rem",fontSize:".9rem",
+                letterSpacing:".15em",
+                borderColor:err?"rgba(255,80,80,.5)":"rgba(200,169,110,.15)"}}/>
+            {err&&<div style={{fontFamily:"'Barlow',sans-serif",fontSize:".7rem",
+              color:"rgba(255,80,80,.75)",marginBottom:"1rem"}}>
+              Incorrect password
+            </div>}
+            <button onClick={login}
+              style={{background:"rgba(200,169,110,.08)",border:"1px solid rgba(200,169,110,.38)",
+                color:"#c8a96e",padding:"10px 34px",fontFamily:"'Bebas Neue',cursive",
+                fontSize:".88rem",letterSpacing:".28em"}}>
+              ENTER
+            </button>
+          </div>
+        ):(
+          <>
+            {/* ── Tab bar ── */}
+            <div style={{display:"flex",borderBottom:"1px solid rgba(200,169,110,.09)",
+              overflowX:"auto",flexShrink:0}}>
+              {TABS.map(([id,label])=>(
+                <button key={id} onClick={()=>setTab(id)}
+                  style={{background:tab===id?"rgba(200,169,110,.08)":"transparent",
+                    border:"none",borderBottom:tab===id?"2px solid #c8a96e":"2px solid transparent",
+                    color:tab===id?"#c8a96e":"rgba(240,237,232,.3)",
+                    padding:".8rem .9rem",whiteSpace:"nowrap",
+                    fontFamily:"'Bebas Neue',cursive",fontSize:".8rem",letterSpacing:".14em",
+                    transition:"all .2s"}}>
+                  {label}
+                </button>
+              ))}
+            </div>
 
+            {/* ── Form fields ── */}
+            <div style={{flex:1,overflowY:"auto",padding:"1.4rem"}}>
+
+              {tab==="hero"&&<>
+                <F label="Brand Name"       path="hero.brandName"/>
+                <F label="Tagline"          path="hero.tagline"/>
+                <F label="Sub Text"         path="hero.subtext"/>
+                <F label="Hero BG Image URL (ImgBB)" path="hero.heroImg"/>
+                <F label="Profile Image URL (ImgBB)" path="hero.profileImg"/>
+              </>}
+
+              {tab==="collection"&&<>
+                <F label="Section Title" path="collection.title"/>
+                <F label="Subtitle"      path="collection.subtitle"/>
+                <div style={{marginTop:".8rem"}}>
+                  {(form.collection?.items||[]).map((item,i)=>(
+                    <div key={item.id} style={{border:"1px solid rgba(200,169,110,.09)",
+                      padding:".9rem",marginBottom:".7rem",background:"rgba(200,169,110,.02)"}}>
+                      <div style={{...LBL,color:"#c8a96e",marginBottom:".6rem"}}>Look 0{i+1}</div>
+                      <F label="Title"              path={`collection.items.${i}.title`}/>
+                      <F label="Label Badge"        path={`collection.items.${i}.label`}/>
+                      <F label="Description"        path={`collection.items.${i}.desc`}/>
+                      <F label="Image URL (ImgBB)"  path={`collection.items.${i}.img`}/>
+                    </div>
+                  ))}
+                </div>
+              </>}
+
+              {tab==="featured"&&<>
+                <F label="Title"             path="featured.title"/>
+                <F label="Subtitle"          path="featured.subtitle"/>
+                <F label="Tag Badge Text"    path="featured.tag"/>
+                <F label="Description"       path="featured.desc" area/>
+                <F label="Image URL (ImgBB)" path="featured.img"/>
+              </>}
+
+              {tab==="about"&&<>
+                <F label="Section Title"     path="about.title"/>
+                <F label="Line 1 (Solid)"    path="about.line1"/>
+                <F label="Line 2 (Outline)"  path="about.line2"/>
+                <F label="Body Text"         path="about.body" area/>
+                <F label="Image URL (ImgBB)" path="about.img"/>
+                <div style={{borderTop:"1px solid rgba(200,169,110,.09)",paddingTop:"1rem",marginTop:".6rem"}}>
+                  <div style={{...LBL,color:"#c8a96e",marginBottom:".65rem"}}>Stats</div>
+                  {[0,1,2].map(i=>(
+                    <div key={i} style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:".6rem",marginBottom:".5rem"}}>
+                      <F label={`Stat ${i+1} Number`} path={`about.stat${i+1}.num`}/>
+                      <F label={`Stat ${i+1} Label`}  path={`about.stat${i+1}.label`}/>
+                    </div>
+                  ))}
+                </div>
+              </>}
+
+              {tab==="footer"&&<>
+                <F label="Tagline"      path="footer.tagline"/>
+                <F label="Instagram"    path="footer.insta"/>
+                <F label="Copyright"    path="footer.copyright"/>
+                <F label="Marquee Text" path="marquee.text"/>
+              </>}
+            </div>
+
+            {/* ── Save bar ── */}
+            <div style={{padding:".9rem 1.4rem",
+              borderTop:"1px solid rgba(200,169,110,.09)",
+              background:"rgba(200,169,110,.02)",flexShrink:0}}>
+              <button onClick={doSave} disabled={saving}
+                style={{width:"100%",padding:"12px",
+                  background:saved?"rgba(80,200,100,.08)":"rgba(200,169,110,.08)",
+                  border:`1px solid ${saved?"rgba(80,200,100,.45)":"rgba(200,169,110,.38)"}`,
+                  color:saved?"#64c878":"#c8a96e",
+                  fontFamily:"'Bebas Neue',cursive",fontSize:".88rem",letterSpacing:".28em",
+                  transition:"all .3s",opacity:saving?.7:1}}>
+                {saving?"SAVING TO FIREBASE…":saved?"✓ SAVED SUCCESSFULLY":"SAVE ALL CHANGES"}
+              </button>
+              <div style={{textAlign:"center",marginTop:".5rem",
+                fontFamily:"'Barlow',sans-serif",fontSize:".53rem",
+                letterSpacing:".14em",color:"rgba(240,237,232,.18)"}}>
+                Changes reflect live on all devices
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   ROOT APP
+══════════════════════════════════════════════════ */
+function App(){
+  const [done,     setDone    ]=useState(false);
+  const [adminOpen,setAdmin   ]=useState(false);
+  const {data,save,ready}      =useFirebase();
+  const isDesktop               =window.matchMedia("(pointer:fine)").matches;
+
+  return(
+    <div style={{background:"#060606",minHeight:"100vh"}}>
+
+      {!done&&<Preloader onDone={()=>setDone(true)}/>}
+
+      {isDesktop&&<Cursor/>}
+
+      <div style={{opacity:done?1:0,transition:"opacity .8s ease"}}>
+        <Navbar    show={done}/>
+        <Hero      data={data.hero} show={done}/>
+        <Marquee   text={data.marquee?.text||DEF.marquee.text}/>
+        <Collection data={data.collection}/>
+        <Featured  data={data.featured}/>
+        <About     data={data.about}/>
+        <Footer    data={data.footer} trigger={()=>setAdmin(true)}/>
+      </div>
+
+      {adminOpen&&(
+        <Admin siteData={data} onSave={save} onClose={()=>setAdmin(false)}/>
+      )}
+
+      {/* Firebase connection dot */}
+      <div style={{position:"fixed",bottom:"12px",right:"12px",
+        width:"6px",height:"6px",borderRadius:"50%",
+        background:ready?"#c8a96e":"#333",
+        boxShadow:ready?"0 0 8px rgba(200,169,110,.7)":"none",
+        transition:"all .5s",zIndex:9000}}
+        title={ready?"Firebase Connected":"Connecting…"}/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
 </body>
 </html>
