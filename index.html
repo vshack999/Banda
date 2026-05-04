@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DEHATI ADDA — Luxury Men's Fashion</title>
+  <!-- Preconnect for Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts: Bebas Neue, Cormorant Garamond, Barlow -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #c8a96e;
+      --gold-light: #e2c98a;
+      --gold-dark: #9a7a45;
+      --bg: #060606;
+      --bg2: #0a0807;
+      --text: #f0ede8;
+      --text-muted: #a09890;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* touch devices will revert cursor */
+    @media (pointer: coarse) {
+      body {
+        cursor: auto;
+      }
+      #cursor-dot, #cursor-ring {
+        display: none !important;
+      }
+    }
+
+    /* Custom Cursor (Desktop) */
+    #cursor-dot, #cursor-ring {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      top: 0;
+      left: 0;
+    }
+    #cursor-ring {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(200, 169, 110, 0.6);
+      top: 0;
+      left: 0;
+      transition: transform 0.12s ease, width 0.2s, height 0.2s, border-color 0.2s;
+    }
+    #cursor-ring.hover {
+      width: 48px;
+      height: 48px;
+      border-color: var(--gold);
+    }
+
+    /* Scroll Progress */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+      z-index: 9998;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* Grain Overlay */
+    #grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      animation: grainAnim 0.5s steps(2) infinite;
+    }
+    @keyframes grainAnim {
+      0% { background-position: 0 0; }
+      25% { background-position: 50px -30px; }
+      50% { background-position: -20px 60px; }
+      75% { background-position: 80px 20px; }
+      100% { background-position: 0 0; }
+    }
+
+    /* Ambient Glow Orbs */
+    #ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      animation: orbFloat 20s ease-in-out infinite alternate;
+    }
+    .glow-orb:nth-child(1) {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+      top: -200px;
+      left: -200px;
+      animation-duration: 25s;
+    }
+    .glow-orb:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(200,169,110,0.05) 0%, transparent 70%);
+      bottom: -100px;
+      right: -100px;
+      animation-duration: 18s;
+    }
+    .glow-orb:nth-child(3) {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(200,169,110,0.04) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      animation-duration: 30s;
+    }
+    @keyframes orbFloat {
+      0% { transform: translate(0,0) scale(1);}
+      100% { transform: translate(40px, -40px) scale(1.1);}
+    }
+
+    /* Particles */
+    .particle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleDrift linear infinite;
+    }
+    @keyframes particleDrift {
+      0% { opacity: 0; transform: translateY(100vh) translateX(0);}
+      10% { opacity: 0.4;}
+      90% { opacity: 0.1;}
+      100% { opacity: 0; transform: translateY(-100px) translateX(30px);}
+    }
+
+    /* PRELOADER */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: #060606;
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 80px);
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+    .preloader-logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(200,169,110,0.4), transparent);
+      animation: shimmer 2s infinite;
+      transform: skewX(-20deg);
+    }
+    @keyframes shimmer {
+      0% { transform: skewX(-20deg) translateX(-200%);}
+      100% { transform: skewX(-20deg) translateX(200%);}
+    }
+    .preloader-tagline {
+      font-family: var(--font-serif);
+      color: var(--text-muted);
+      letter-spacing: 0.4em;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-top: 16px;
+      font-style: italic;
+    }
+    .preloader-bar-wrap {
+      width: 200px;
+      height: 1px;
+      background: rgba(200,169,110,0.2);
+      margin-top: 40px;
+      overflow: hidden;
+    }
+    .preloader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+      width: 0%;
+      animation: barFill 2.2s ease forwards;
+    }
+    @keyframes barFill {
+      0% { width: 0%;}
+      100% { width: 100%;}
+    }
+    .preloader-counter {
+      font-family: var(--font-display);
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 0.3em;
+      margin-top: 12px;
+    }
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+      pointer-events: none;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(6,6,6,0.85);
+      backdrop-filter: blur(12px);
+      padding: 16px 48px;
+      border-bottom: 1px solid rgba(200,169,110,0.1);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+    }
+
+    /* HERO */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a0807 0%, #060606 40%, #0d0b08 100%);
+      z-index: 0;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0.3;
+      z-index: 1;
+      transition: transform 0.1s linear;
+      will-change: transform;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6,6,6,0.3) 0%, rgba(6,6,6,0.1) 40%, rgba(6,6,6,0.95) 100%);
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 0 48px 80px;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s 2.8s ease forwards;
+    }
+    .hero-title-1, .hero-title-2 {
+      font-family: var(--font-display);
+      font-size: clamp(80px, 15vw, 180px);
+      line-height: 0.85;
+      letter-spacing: 0.05em;
+      display: block;
+      opacity: 0;
+      animation: slideUp 0.9s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-title-1 { color: var(--text); animation-delay: 3s; }
+    .hero-title-2 { -webkit-text-stroke: 1px var(--gold); color: transparent; animation-delay: 3.15s; }
+    .hero-tagline {
+      font-family: var(--font-serif);
+      font-size: clamp(16px, 2vw, 22px);
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s 3.4s ease forwards;
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s 3.6s ease forwards;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s 3.8s ease forwards;
+    }
+    .hero-scroll span {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .hero-content { padding: 0 24px 60px; }
+      .hero-scroll { right: 24px; }
+    }
+
+    /* MARQUEE */
+    .marquee-strip {
+      background: var(--gold);
+      padding: 14px 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 25s linear infinite;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.4em;
+      color: #060606;
+      padding: 0 40px;
+      white-space: nowrap;
+    }
+    .marquee-dot { color: rgba(6,6,6,0.5); }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Sections common */
+    section { position: relative; z-index: 2; }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 80px);
+      letter-spacing: 0.05em;
+      line-height: 0.9;
+      color: var(--text);
+    }
+    .section-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: clamp(16px, 2vw, 20px);
+      margin-top: 12px;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* COLLECTION SCROLL */
+    #collection { padding: 80px 0; }
+    .collection-header { padding: 0 48px; margin-bottom: 48px; }
+    .collection-scroll {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 0 48px 24px;
+      scrollbar-width: none;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+    .collection-scroll:active { cursor: grabbing; }
+    .collection-scroll::-webkit-scrollbar { display: none; }
+    .col-card {
+      flex: 0 0 320px;
+      background: #0e0c09;
+      border: 1px solid rgba(200,169,110,0.1);
+      transition: border-color 0.3s, transform 0.3s;
+      transform-style: preserve-3d;
+    }
+    .col-card:hover { border-color: rgba(200,169,110,0.4); }
+    .col-card-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .col-card:hover .col-card-img { transform: scale(1.05); }
+    .col-card-body { padding: 20px 24px 24px; }
+    .col-card-label {
+      font-family: var(--font-body);
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .col-card-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .col-card-desc {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .col-card-price {
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-top: 12px;
+    }
+    @media (max-width: 768px) {
+      .collection-header { padding: 0 24px; }
+      .collection-scroll { padding: 0 24px 24px; }
+      .col-card { flex: 0 0 260px; }
+      .col-card-img { height: 340px; }
+    }
+
+    /* FEATURED */
+    #featured {
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .featured-visual { position: relative; }
+    .featured-img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      display: block;
+    }
+    .featured-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(ellipse at center, rgba(200,169,110,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: glowPulse 4s ease-in-out infinite alternate;
+    }
+    .featured-frame {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(200,169,110,0.2);
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .featured-number {
+      font-family: var(--font-display);
+      font-size: 120px;
+      color: rgba(200,169,110,0.06);
+      line-height: 1;
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      pointer-events: none;
+    }
+    .featured-title {
+      font-family: var(--font-display);
+      font-size: clamp(50px, 6vw, 90px);
+      line-height: 0.9;
+      margin-bottom: 24px;
+    }
+    .featured-title span:first-child { display: block; }
+    .featured-title span:last-child { display: block; color: transparent; -webkit-text-stroke: 1px var(--gold); }
+    .featured-body {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+    .featured-cta {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 14px 36px;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .featured-cta:hover { color: #060606; }
+    .featured-cta:hover::before { transform: scaleX(1); }
+    .featured-cta span { position: relative; z-index: 1; }
+    @media (max-width: 900px) {
+      #featured { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+      .featured-img { height: 400px; }
+    }
+
+    /* ABOUT */
+    #about { padding: 100px 48px; position: relative; overflow: hidden; }
+    .about-bg-text {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(80px, 20vw, 240px);
+      color: rgba(200,169,110,0.03);
+      white-space: nowrap;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      letter-spacing: 0.2em;
+      pointer-events: none;
+    }
+    .about-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-heading-main {
+      font-family: var(--font-display);
+      font-size: clamp(50px, 7vw, 100px);
+      line-height: 0.85;
+      margin-bottom: 8px;
+    }
+    .about-heading-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(20px, 3vw, 36px);
+      color: var(--gold);
+    }
+    .about-body {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 24px;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .about-badge {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,169,110,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: rotateBadge 20s linear infinite;
+    }
+    @keyframes rotateBadge { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .badge-center {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-align: center;
+      position: absolute;
+    }
+    .badge-ring-text { font-family: var(--font-body); font-size: 8px; letter-spacing: 0.3em; fill: var(--gold); }
+    @media (max-width: 900px) {
+      #about { padding: 60px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(200,169,110,0.1);
+      padding: 60px 48px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 100px);
+      letter-spacing: 0.2em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(200,169,110,0.4);
+    }
+    .footer-tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+    .footer-insta {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,169,110,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.3s;
+    }
+    .footer-insta:hover { border-color: var(--gold); }
+    .footer-copy {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(160,152,144,0.4);
+    }
+
+    /* FLOATING BUTTONS (Instagram & WhatsApp) */
+    .floating-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .glow-btn {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      background: rgba(6,6,6,0.7);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 40px;
+      box-shadow: 0 0 10px rgba(200,169,110,0.3);
+      transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+      text-align: center;
+      min-width: 130px;
+    }
+    .glow-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(200,169,110,0.9);
+      background: rgba(200,169,110,0.15);
+      color: var(--gold-light);
+    }
+    @media (max-width: 600px) {
+      .glow-btn { padding: 8px 16px; min-width: 110px; font-size: 10px; }
+      .floating-buttons { bottom: 20px; right: 20px; gap: 12px; }
+    }
+
+    /* FALLBACK */
+    .img-fallback { object-fit: cover; }
+  </style>
+</head>
+<body>
+<div id="scroll-progress"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="grain"></div>
+<div id="ambient-bg"><div class="glow-orb"></div><div class="glow-orb"></div><div class="glow-orb"></div></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="scanlines"></div>
+  <div class="preloader-logo">DEHATI ADDA</div>
+  <div class="preloader-tagline">Where Heritage Meets Haute</div>
+  <div class="preloader-bar-wrap"><div class="preloader-bar"></div></div>
+  <div class="preloader-counter" id="preloader-counter">0%</div>
+</div>
+
+<!-- Main React Root -->
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+  // IMAGE CONFIGURATION (Single Source of Truth)
+  const IMAGES = {
+    hero: "https://i.ibb.co/4wxw8P8y/1777874039683.png",      // Replace with actual ImgBB link or fallback
+    featured: "https://i.ibb.co/4ZLyFvc/luxury-suit.jpg",
+    collection: [
+      "https://i.ibb.co/MkprxyDv/44dd5ceba2d3418f017c3c59ee46494f.jpg",
+      "https://i.ibb.co/8xBzq7c/sherwani-opus.jpg",
+      "https://i.ibb.co/PwLpRyG/fusion-blazer.jpg",
+      "https://i.ibb.co/Kz6prjF/blockprint.jpg",
+      "https://i.ibb.co/gVQkJFQ/bandhgala.jpg"
+    ],
+    fallback: "https://i.ibb.co/DDBtr0yd/6d3d8d14226dbed3458a06a0158cc4aa.jpg"
+  };
+  // Fallback handler: if any image fails, use menswear unsplash.
+  const fallbackSrc = "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=800&q=80";
+
+  const DEFAULT_DATA = {
+    hero: { eyebrow: "SS 2025 COLLECTION", tagline: "Where Heritage Meets Haute", subtext: "Handcrafted Excellence · Premium Fabrics · Timeless Style" },
+    featured: { title1: "THE ART", title2: "OF DRESSING", body: "Every thread tells a story. Every silhouette whispers of centuries of craftsmanship woven into the fabric of modernity.", ctaText: "Explore Collection", image: IMAGES.featured },
+    about: { heading1: "DEHATI", heading2: "ADDA", body: "Born from the soul of India's artisanal heritage, DEHATI ADDA redefines luxury menswear. We fuse timeless craftsmanship with contemporary silhouettes — for the man who wears his culture with pride.", stat1Num: "500+", stat1Label: "Unique Pieces", stat2Num: "12", stat2Label: "Master Artisans", stat3Num: "7", stat3Label: "Years of Legacy", stat4Num: "50+", stat4Label: "Fabrics Sourced" },
+    collection: [
+      { id:1, label:"HERITAGE SERIES", title:"THE KURTA NOIR", desc:"A midnight black hand-woven kurta with gold zari border.", price:"₹12,500", image: IMAGES.collection[0] || fallbackSrc },
+      { id:2, label:"ROYAL COLLECTION", title:"SHERWANI OPUS", desc:"Ivory silk sherwani with intricate thread embroidery.", price:"₹45,000", image: IMAGES.collection[1] || fallbackSrc },
+      { id:3, label:"MODERN LUXE", title:"INDO-FUSION BLAZER", desc:"A structured raw silk blazer fusing East and West.", price:"₹18,000", image: IMAGES.collection[2] || fallbackSrc },
+      { id:4, label:"ARTISAN CRAFT", title:"BLOCK PRINT SHIRT", desc:"Hand block-printed on Jaipur cotton. Limited run.", price:"₹6,500", image: IMAGES.collection[3] || fallbackSrc },
+      { id:5, label:"OCCASION WEAR", title:"BANDHGALA SUPREME", desc:"Classic Bandhgala in charcoal wool with satin lapel.", price:"₹28,000", image: IMAGES.collection[4] || fallbackSrc }
+    ],
+    footer: { tagline: "Where Heritage Meets Haute", instagram: "@dehati.adda" }
+  };
+
+  const App = () => {
+    const [data] = React.useState(DEFAULT_DATA);
+    const heroImgRef = React.useRef(null);
+    
+    // Parallax & scroll progress
+    React.useEffect(() => {
+      const onScroll = () => {
+        const y = window.scrollY;
+        const progress = (y / (document.body.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('scroll-progress').style.width = progress + '%';
+        if (heroImgRef.current) heroImgRef.current.style.transform = `translateY(${y * 0.25}px)`;
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+    
+    // Reveal animations
+    React.useEffect(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      return () => observer.disconnect();
+    }, []);
+    
+    // Drag-to-scroll
+    React.useEffect(() => {
+      const slider = document.querySelector('.collection-scroll');
+      if (!slider) return;
+      let isDown = false, startX, scrollLeft;
+      const handleMouseDown = (e) => { isDown = true; slider.classList.add('active'); startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; };
+      const handleMouseLeave = () => { isDown = false; slider.classList.remove('active'); };
+      const handleMouseUp = () => { isDown = false; slider.classList.remove('active'); };
+      const handleMouseMove = (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - slider.offsetLeft; slider.scrollLeft = scrollLeft - (x - startX) * 1.5; };
+      slider.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mouseup', handleMouseUp);
+      slider.addEventListener('mousemove', handleMouseMove);
+      slider.addEventListener('mouseleave', handleMouseLeave);
+      return () => { slider.removeEventListener('mousedown', handleMouseDown); window.removeEventListener('mouseup', handleMouseUp); slider.removeEventListener('mousemove', handleMouseMove); slider.removeEventListener('mouseleave', handleMouseLeave); };
+    }, []);
+    
+    // Tilt effect desktop
+    React.useEffect(() => {
+      const cards = document.querySelectorAll('.tilt-card');
+      const isMobile = window.matchMedia('(pointer:coarse)').matches;
+      if (isMobile) return;
+      cards.forEach(card => {
+        const handleMove = (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+        };
+        const handleLeave = () => { card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)'; };
+        card.addEventListener('mousemove', handleMove);
+        card.addEventListener('mouseleave', handleLeave);
+        return () => { card.removeEventListener('mousemove', handleMove); card.removeEventListener('mouseleave', handleLeave); };
+      });
+    }, []);
+
+    const onImgError = (e) => { e.target.src = fallbackSrc; };
+    const d = data;
+    return (
+      <>
+        <nav id="main-nav">
+          <a href="#" className="nav-logo">DEHATI ADDA</a>
+          <ul className="nav-links">
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#featured">Featured</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </nav>
+        
+        {/* HERO SECTION */}
+        <section id="hero">
+          <div className="hero-bg"></div>
+          <div className="hero-bg-img" ref={heroImgRef} style={{ backgroundImage: `url(${IMAGES.hero})`, backgroundSize: 'cover', backgroundPosition: 'center 25%' }}></div>
+          <div className="hero-overlay"></div>
+          <div className="hero-content">
+            <div className="hero-eyebrow">{d.hero.eyebrow}</div>
+            <div><span className="hero-title-1">DEHATI</span><span className="hero-title-2">ADDA</span></div>
+            <div className="hero-tagline">{d.hero.tagline}</div>
+            <div className="hero-sub">{d.hero.subtext}</div>
+          </div>
+          <div className="hero-scroll"><div className="scroll-line"></div><span>Scroll</span></div>
+        </section>
+        
+        {/* MARQUEE */}
+        <div className="marquee-strip"><div className="marquee-track">{[...Array(6)].map((_,i) => (<React.Fragment key={i}><span className="marquee-item">DEHATI ADDA</span><span className="marquee-item marquee-dot">✦</span><span className="marquee-item">LUXURY MENSWEAR</span><span className="marquee-item marquee-dot">✦</span><span className="marquee-item">HERITAGE CRAFT</span><span className="marquee-item marquee-dot">✦</span></React.Fragment>))}</div></div>
+        
+        {/* COLLECTION */}
+        <section id="collection">
+          <div className="collection-header reveal"><div className="section-label">Curated Looks</div><div className="section-title">THE COLLECTION</div><div className="section-subtitle">Drag to explore the season's finest</div></div>
+          <div className="collection-scroll">
+            {d.collection.map(item => (<div key={item.id} className="col-card tilt-card"><img className="col-card-img" src={item.image} alt={item.title} loading="lazy" onError={onImgError} /><div className="col-card-body"><div className="col-card-label">{item.label}</div><div className="col-card-title">{item.title}</div><div className="col-card-desc">{item.desc}</div><div className="col-card-price">{item.price}</div></div></div>))}
+          </div>
+        </section>
+        
+        {/* FEATURED */}
+        <section id="featured" className="reveal">
+          <div className="featured-visual tilt-card"><div className="featured-glow"></div><div className="featured-frame"></div><img className="featured-img" src={d.featured.image} onError={onImgError} alt="Featured" /></div>
+          <div className="featured-content" style={{position:'relative'}}><div className="featured-number">01</div><div className="section-label">Editor's Pick</div><div className="featured-title"><span>{d.featured.title1}</span><span>{d.featured.title2}</span></div><div className="featured-body">{d.featured.body}</div><a href="#collection" className="featured-cta"><span>{d.featured.ctaText}</span></a></div>
+        </section>
+        
+        {/* ABOUT */}
+        <section id="about"><div className="about-bg-text">DEHATI</div><div className="about-inner reveal"><div><div className="section-label">Our Story</div><div className="about-heading-main">{d.about.heading1}</div><div className="about-heading-sub">{d.about.heading2}</div><div className="about-body">{d.about.body}</div><div className="about-stats"><div className="stat-item"><div className="stat-num">{d.about.stat1Num}</div><div className="stat-label">{d.about.stat1Label}</div></div><div className="stat-item"><div className="stat-num">{d.about.stat2Num}</div><div className="stat-label">{d.about.stat2Label}</div></div><div className="stat-item"><div className="stat-num">{d.about.stat3Num}</div><div className="stat-label">{d.about.stat3Label}</div></div><div className="stat-item"><div className="stat-num">{d.about.stat4Num}</div><div className="stat-label">{d.about.stat4Label}</div></div></div></div><div style={{display:'flex', justifyContent:'center'}}><div className="about-badge"><svg viewBox="0 0 140 140" width="140" height="140"><defs><path id="circlePath" d="M70,70 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs><text><textPath href="#circlePath" className="badge-ring-text">DEHATI ADDA · LUXURY MENSWEAR · HERITAGE CRAFT · </textPath></text></svg><div className="badge-center">EST<br/><span style={{fontSize:'18px',fontFamily:'var(--font-display)'}}>2018</span></div></div></div></div></section>
+        
+        {/* FOOTER */}
+        <footer><div className="footer-brand">DEHATI ADDA</div><div className="footer-tagline">{d.footer.tagline}</div><a href="https://instagram.com/dehati.adda" className="footer-insta" target="_blank" rel="noopener">{d.footer.instagram}</a><div className="footer-copy">© 2025 Dehati Adda. All Rights Reserved.</div></footer>
+        
+        {/* FLOATING BUTTONS */}
+        <div className="floating-buttons">
+          <a href="https://instagram.com/dehati.adda" target="_blank" rel="noopener noreferrer" className="glow-btn">📷 INSTAGRAM</a>
+          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="glow-btn">💬 WHATSAPP</a>
+        </div>
+      </>
+    );
+  };
+  
+  // Render or fallback
+  try {
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  } catch(e) {
+    document.getElementById('root').innerHTML = '<div style="color:#c8a96e; text-align:center; padding:80px 20px; font-family: monospace;">Premium experience loading...</div>';
+  }
+</script>
+
+<script>
+  // Preloader + custom cursor (non-react)
+  (function() {
+    let count = 0, interval = setInterval(() => { count += Math.floor(Math.random() * 10) + 5; if (count >= 100) { count = 100; clearInterval(interval); } const ct = document.getElementById('preloader-counter'); if (ct) ct.textContent = count + '%'; }, 60);
+    window.addEventListener('load', () => { setTimeout(() => { const pl = document.getElementById('preloader'); if (pl) pl.classList.add('hidden'); }, 2600); });
+    setTimeout(() => { const pl = document.getElementById('preloader'); if (pl) pl.classList.add('hidden'); }, 3600);
+    // cursor effect
+    if (!window.matchMedia('(pointer:coarse)').matches) {
+      let dot = document.getElementById('cursor-dot'), ring = document.getElementById('cursor-ring');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+      function lerp() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerp); } lerp();
+      document.querySelectorAll('a, button, .col-card, .featured-cta, .nav-links a, .glow-btn').forEach(el => { el.addEventListener('mouseenter', () => ring.classList.add('hover')); el.addEventListener('mouseleave', () => ring.classList.remove('hover')); });
+    }
+    // nav scroll
+    window.addEventListener('scroll', () => { const nav = document.getElementById('main-nav'); if (nav) nav.classList.toggle('scrolled', window.scrollY > 80); });
+    // particles
+    const bg = document.getElementById('ambient-bg');
+    if (bg) for (let i = 0; i < 15; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random() * 100 + '%'; p.style.animationDuration = (Math.random() * 15 + 10) + 's'; p.style.animationDelay = Math.random() * 15 + 's'; bg.appendChild(p); }
+  })();
+</script>
+</body>
+</html>
